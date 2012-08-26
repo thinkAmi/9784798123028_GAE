@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+body {
+ background-image: url("../img/eri.jpg");
+ background-repeat: no-repeat;
+ background-position: 450px 0px;
+}
+dt { font-weight: bold; }
+dd { padding: 0.5em; margin-left: 0em; }
+.email { width: 400px; }
+.error { color: #FF4444; }

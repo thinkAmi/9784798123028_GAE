@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>彼女からの目覚ましメール</title>
+
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<form action="/" method="post">
+    <input type="hidden" name="currentYear" value="" />
+    
+    <h1>彼女からの目覚ましメール</h1>
+    <p>「何時に起こしてほしい？　メアドと呼び方も教えてね」</p>
+    
+    <dl>
+        <dt>メールアドレス：
+            {% if emailError %}
+            <span class="error">メアドを教えてくれないと、起こせないよ</span>
+            {% endif %}
+        </dt>
+        <dd><input type="text" name="email" value="{{email}}" class="email"/></dd>
+        
+        <dt>呼び方：
+            {% if nicknameError %}
+            <span class="error">なんて呼べばいい？</span>
+            {% endif %}
+        </dt>
+        <dd><input type="text" name="nickname" value="{{nickname}}" /></dd>
+
+        <dt>起こしてもらう時間：
+            {% if wakeupDateError %}
+            <span class="error">そんな日はないと思うな</span>
+            {% endif %}
+        </dt>
+        <dd>
+            <!-- 年 -->
+            <select name="year">
+                {% for year in years %}
+                    
+                    <!-- 現在年と同一の場合-->
+                    {% ifequal year selectedYear %}
+                    <option value={{ year }} selected>{{ year }}</option>
+                    
+                    <!-- その他の場合 -->
+                    {% else %}
+                    <option value={{ year }}>{{ year }}</option>
+                    
+                    {% endifequal %}
+                {% endfor %}
+            </select>
+            年
+            
+            
+            <!-- 月 -->
+            <select name="month">
+                {% for month in months %}
+                                        
+                    {% ifequal month selectedMonth %}
+                    <option value={{ month }} selected>{{ month }}</option>
+                    
+                    {% else %}
+                    <option value={{ month }}>{{ month }}</option>
+                    
+                    {% endifequal %}
+                {% endfor %}
+            </select>
+            月
+            
+            
+            <!-- 日 -->
+            <select name="date">
+                {% for date in dates %}
+                                        
+                    {% ifequal date selectedDate %}
+                    <option value={{ date }} selected>{{ date }}</option>
+                    
+                    {% else %}
+                    <option value={{ date }}>{{ date }}</option>
+                    
+                    {% endifequal %}
+                {% endfor %}
+            </select>
+            日
+            
+            
+            <!-- 時間 -->
+            <select name="hourOfDay">
+                {% for hour in hours %}
+                                        
+                    {% ifequal hour selectedHourOfDay %}
+                    <option value={{ hour }} selected>{{ hour }}</option>
+                    
+                    {% else %}
+                    <option value={{ hour }}>{{ hour }}</option>
+                    
+                    {% endifequal %}
+                {% endfor %}
+            </select>
+            時
+            
+            
+            <!-- 分（5分おき） -->
+            <select name="minute">
+                {% for minute in minutes %}
+                                        
+                    {% ifequal minute selectedMinute %}
+                    <option value={{ minute }} selected>{{ minute }}</option>
+                    
+                    {% else %}
+                    <option value={{ minute }}>{{ minute }}</option>
+                    
+                    {% endifequal %}
+                {% endfor %}
+            </select>
+            分
+            
+        </dd>
+    </dl>
+    
+    <input type="submit" value="この時間に起こしてね" />
+</form>
+</body>
+</html>
