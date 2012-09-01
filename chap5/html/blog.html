@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>アバター旅行記</title>
+
+
+<link href="/css/blog.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+    <div id="haeder">
+        <h1>アバター旅行記</h1>
+        
+        <div id="container">
+            <div id="contents">
+                {% ifequal blog.articleCount 0 %}
+                    <p>（現在、目的地に向かって移動中です。ちょっと待って下さい。）</p>
+                {% endifequal %}
+                
+                {% for article in articles %}
+                    <div class="article">
+                        <div>投稿日：{{ article.postDate|date:"Y/m/d" }}</div>
+                     
+                        {% if article.imageUrl %}
+                            <div>
+                                <a href={{ article.pageUrl }}>
+                                    <img src={{ article.imageUrl }} />
+                                </a>
+                            </div>
+                        {% endif %}
+                     
+                        <div>{{ article.text }}</div>
+                    </div>
+                {% endfor %}
+                
+                {% ifnotequal  blog.nextPostDate|date:"Y" "9999" %}
+                    <p>次の投稿予定：{{ blog.nextPostDate|date:"Y/m/d H:i:s" }}　ごろ</p>
+                {% endifnotequal %}
+            </div>
+        </div>
+        
+        <div id="navigation">
+            <table>
+                <tr>
+                    <th>名前</th>
+                    <td>{{ blog.avatarName }}</td>
+                </tr>
+                
+                <tr>
+                    <th>出発日</th>
+                    <td>{{ blog.departureDate|date:"Y/m/d" }}</td>
+                </tr>
+                
+                <tr>
+                    <th>目的地</th>
+                    <td>{{ blog.destination }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <img src="/img/{{ blog.avatarImageName }}" />
+                    </td>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

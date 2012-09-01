@@ -1,0 +1,5 @@
+cron:
+- description: blog check
+  url: /cron/article
+  schedule: every 5 minutes
+  timezone: Asia/Tokyo

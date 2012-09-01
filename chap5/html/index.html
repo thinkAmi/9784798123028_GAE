@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>アバター旅行記 - blog登録</title>
+
+</head>
+<body>
+<form action="/" method="post">
+    <h1>アバター旅行記 - blog登録</h1>
+    
+    <div sytle="float: left;">
+        <h2>1.　アバターの選択</h2>
+        
+        <table>
+            <tr>
+                {% for avatar in avatars %}
+                    <td>
+                        <img src="/img/{{ avatar.imageName }}" /><br />
+                        {% ifequal forloop.counter0 0 %}
+                            <label><input type="radio" name="avatarId" value={{avatar.id}} checked="checked" /><span>{{avatar.name}}</span></label>
+                        {% else %}
+                            <label><input type="radio" name="avatarId" value={{avatar.id}} /><span>{{avatar.name}}</span></label>
+                        {% endifequal %}
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+        
+        
+        <!-- 以下は、仮実装時のコード
+        <table>
+            <tr>
+                <td>
+                    <img src="/img/avatar_eri.jpg" /><br />
+                    <label><input type="radio" name="avatarId" value="eri" checked="checked" /><span>えり</span></label>
+                </td>
+
+                <td>
+                    <img src="/img/avatar_soun.jpg" /><br />
+                    <label>
+                        <input type="radio" name="avatarId" value="soun" />
+                        <span>早雲</span>
+                    </label>
+                </td>
+                
+                <td>
+                    <img src="/img/avatar_o2.jpg" /><br />
+                    <label>
+                        <input type="radio" name="avatarId" value="o2" />
+                        <span>O2</span>
+                    </label>
+                </td>
+            </tr>
+        </table>
+        ここまで仮実装時 -->
+        
+    </div>
+    
+    <div style="float: left;">
+        <h2>2.　行き先の選択</h2>
+        <p>行き先
+            <select name="destination">
+                <option value="Prague">プラハ</option>
+                <option value="London">ロンドン</option>
+                <option value="Roma">ローマ</option>
+                <option value="New York">ニューヨーク</option>
+                <option value="Las Vegas">ラスベガス</option>
+                <option value="San Francisco">サンフランシスコ</option>
+                <option value="Giza">ギザ</option>
+                <option value="Dubai">ドバイ</option>
+            </select>
+        </p>
+        
+        <h2>3.　出発</h2>
+        <p>アバターと行き先を選択したら、このボタン→
+            <input type="submit" value="出発" />
+           をクリックしてください
+        </p>
+
+        <h2>最近の旅行記</h2>
+        
+        <ul>
+            {% for blog in blogs %}
+                <li>
+                    <a href="/blog/{{blog.id}}" > {{blog.avatarName}} in {{ blog.destination }} （出発日： {{ blog.departureDate|date:"Y/m/d" }}）</a>
+                </li>
+            {% endfor %}
+        
+        
+        
+            <!-- 以下は演習最初の実装
+            <li>えり in Prague (出発日：2011/3/3)</li>
+            <li>早雲 in Giza (出発日：2011/3/2)</li>
+            <li>O2 in Dubai (出発日：2011/2/29)</li>
+            -->
+            
+        </ul>
+    </div>
+</form>
+</body>
+</html>

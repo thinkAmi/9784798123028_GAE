@@ -1,0 +1,35 @@
+application: <your application id>
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+error_handlers:
+- file: html/error.html
+
+handlers:
+- url: /css
+  static_dir: css
+  
+- url: /img
+  static_dir: img
+
+- url: /task/article
+  script: article_task.app
+  login: admin
+  
+- url: /cron/article
+  script: article_operation.app
+  login: admin
+
+- url: /blog/.*
+  script: blog_display.app
+
+- url: /
+  script: index.app
+  
+- url: /index\.html
+  script: index.app
+
+- url: /.*
+  script: index.app
