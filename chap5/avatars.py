@@ -76,7 +76,7 @@ class Avatar(object):
         pass
 
 
-    # メソッド
+    # 継承メソッド群
     def add_article(self, blog, text, keywords, nextPostTime):
     
         helper = flickr.flickr_helper.FlickrHelper()
@@ -85,36 +85,65 @@ class Avatar(object):
         
         pageUrl = ''
         imageUrl = ''
-        jstnow = gae_util.Utility.get_jst_now()
         
         if helper.id != '':
             pageUrl = helper.get_page_url()
             imageUrl = helper.get_image_url()
             
+            
         
+        # run_in_transaction_optionsによるトランザクション
+        params = {'blogId': blog.id,
+                  'text': text,
+                  'nextPostTime': nextPostTime,
+                  'pageUrl': pageUrl,
+                  'imageUrl': imageUrl
+                 }
+        
+        
+        # ★以下のニ行をアンコメントすることで、トランザクションを使わなくなる★
+        #self.run_xg_transaction(params)
+        #return
+        
+        xg_options = db.create_transaction_options(xg=True, retries=3)
+        db.run_in_transaction_options(xg_options,
+                                      self.run_xg_transaction,
+                                      params)
+            
+
+    def run_xg_transaction(self, params):
+        jstnow = gae_util.Utility.get_jst_now()
+        
+        blogId = params['blogId']
+        blog = blogs.Blog.get_by_key_name(str(params['blogId']))
+
         # 親ブログの更新
+        nextPostTime = params['nextPostTime']
         if nextPostTime >= 0:
             # 本では時間を加算していたが、時間短縮のため分を加算する
             blog.nextPostDate = jstnow + datetime.timedelta(minutes=nextPostTime)
-            blog.articleCount = blog.articleCount + 1
-        
+            blog.articleCount += 1
+
         else:
             blog.nextPostDate = datetime.datetime(9999,12,31,0,0,0)
+            
+        blog.put()
         
         
+        # ★強制的に例外を起こすためには、以下の一行をアンコメント★
+        #raise ValueError("*-------Error--------*")
         
+
         # 記事の登録
         article = blogs.Article(id = jstnow,
                                 blog = blog,
                                 postDate = jstnow,
-                                text = text,
-                                pageUrl = pageUrl,
-                                imageUrl = imageUrl,
+                                text = params['text'],
+                                pageUrl = params['pageUrl'],
+                                imageUrl = params['imageUrl'],
                                 )
                                 
-                                
-        #一気に更新
-        db.put([blog, article])
+        article.put()
     
     
     def abort_blog(self, blog):
