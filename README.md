@@ -11,11 +11,12 @@
 ----------
 
 * OS: Windows7 x64
-* SDK: Google App Engine SDK for Python 1.7.0 - 2012-06-26
+* SDK: Google App Engine SDK for Python 1.7.1 - 2012-06-26
 * Python: Python2.7
 
 
-## セットアップ
+セットアップ
+----------
 
 git clone後、Launcherからサブディレクトリの「chap*」のいずれかを指定して、
 アプリを追加します。
@@ -23,20 +24,16 @@ git clone後、Launcherからサブディレクトリの「chap*」のいずれ�
 なお、app.yaml中のapplicationは任意のものへと変更してください。
 
 
-## ライセンス
-
+クレジット
+----------
+### 中垣 健志 著「作ればわかる！Google App Engine for Javaプログラミング」(翔泳社 978-4-7981-2302-8) ###
 ソースコードは「作ればわかる！ Google App Engine for Java プログラミング」本より
 派生しているため、Apache License 2.0に記載の条件に従って使用しています。
 (http://www.apache.org/licenses/LICENSE-2.0)
 
-また、Python部分に関しても、本のライセンスに準じ、
-Apache License 2.0に従って配布します。
-
-
 イラストは修正を加えていないため、本のラインセンス通り、
 クリエイティブ・コモンズの表示3.0ライセンスに記載の条件に従って使用しています。
 (http://creativecommons.org/licenses/by/3.0/deed.ja)
-
 
 なお、本の著作権者は以下の通りです。
 
@@ -45,10 +42,14 @@ Apache License 2.0に従って配布します。
 
 
 
+### Matthew A. Russell 著「PayPal APIs: Up and Running (2nd Ed.)」(Copyright 2012 O’Reilly Media, Inc., 978-1-449-31872-7) ###
+ExpressCheckout API を中心に、PayPal API の使い方が参考になりました。
 
 ライセンス
 ----------
- 
+Python部分に関して、本のライセンスに準じ、Apache License 2.0に従って配布します。
+
+
      Copyright (C) 2012 thinkAmi
      
      Licensed under the Apache License, Version 2.0 (the "License");
