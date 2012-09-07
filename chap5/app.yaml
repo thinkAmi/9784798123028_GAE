@@ -24,6 +24,10 @@ handlers:
 
 - url: /blog/.*
   script: blog_display.app
+  
+- url: /paypal/.*
+  script: payment_handlers.app
+  secure: always
 
 - url: /
   script: index.app
