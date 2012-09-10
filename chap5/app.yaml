@@ -25,15 +25,20 @@ handlers:
 - url: /blog/.*
   script: blog_display.app
   
-- url: /paypal/.*
-  script: payment_handlers.app
-  secure: always
-
 - url: /
   script: index.app
   
 - url: /index\.html
   script: index.app
 
-- url: /.*
-  script: index.app
+- url: /paypal/.*
+  script: payment_handlers.app
+  secure: always
+
+  
+libraries:
+- name: webapp2
+  version: 2.5.1
+  
+- name: webob
+  version: latest

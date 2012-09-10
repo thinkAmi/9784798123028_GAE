@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>お土産の購入</title>
+
+</head>
+    <body>
+        <h1>お土産の購入 - 確認</h1>
+        <p>以下の内容で、お土産の購入を行いますが、よろしいですか？</p>
+        
+        <p>お名前：　{{ params.shipToName }}</p>
+        <p>郵便番号：　{{ params.shipToZip }}</p>
+        
+        {% if params.shipToPhoneNo %}
+        <p>電話番号：　{{ params.shipToPhoneNo }}</p>
+        {% endif %}
+        
+        <p>住所：　{{ params.shipToState }}　{{ params.shipToCity }}　{{ params.shipToStreet }}　{{ params.shipToStreet2 }}</p>
+        
+        <p>支払総額：{{ params.amount }} 円</p>
+        <p>■内訳</p>
+        <p>商品合計： {{ params.itemAmount }} 円</p>
+        <p>税合計： {{ params.taxAmount }} 円</p>
+        <p>配送料： {{ params.shippingAmount}} 円</p>
+        
+        <p>■商品情報</p>
+        <p>商品名： {{ params.itemName }}</p>
+        <p>単価： {{ params.itemUnitPrice }} 円</p>
+        <p>数量： {{ params.quantity }} 個</p>
+        <p>税額： {{ params.tax }} 円</p>
+        
+        <form action="{{ postUrl }}" method="post">
+            <input type="submit" value="この内容で確定する">
+        </form>
+    </body>
+</html>

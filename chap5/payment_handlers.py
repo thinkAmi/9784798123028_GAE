@@ -3,7 +3,12 @@
 import webapp2
 import os
 import urlparse     # Python2.7なので、cgiではなくurlparseを使う
+import logging
 from google.appengine.ext.webapp import template
+
+from webapp2_extras import sessions
+from webapp2_extras import sessions_memcache
+from webapp2_extras import sessions_ndb
 
 from paypal.helper import ExpressCheckout as EC
 from paypal.souvenir import Souvenir
@@ -16,10 +21,49 @@ URL_PAYMENT = '/paypal/payment'
 URL_CANCEL_REDIRECT = '/paypal/redirect/cancel'
 URL_CANCEL = '/paypal/cancel/'
 
+SESSION_NAME = 'my-session-name'
 
-class CartPageHandler(webapp2.RequestHandler):
+class BaseSessionHandler(webapp2.RequestHandler):
+    def dispatch(self):
+        self.session_store = sessions.get_store(request=self.request)
+                                                 
+        try:
+            webapp2.RequestHandler.dispatch(self)
+            
+        finally:
+            self.session_store.save_sessions(self.response)
+            
+    @webapp2.cached_property
+    def session(self):
+        # 以下はmemcache時
+        #return self.session_store.get_session(backend='memcache')
+        
+        # 以下はCookie版
+        #return self.session_store.get_session(backend='securecookie')
+        
+        # Datastore版
+        return self.session_store.get_session(backend='datastore')
+
+
+    def has_session_error(self):
+        # セッション変数が取れない場合、エラー描画
+        if self.session.get(SESSION_NAME) is None:
+            
+            self.response.out.write(template.render('html/payment_error.html',{}))
+            return True
+            
+        return False
+
+
+class CartPageHandler(BaseSessionHandler):
+    #def __init__(self, request, response):
+    #    super(BaseSessionHandler, self).__init__(request, response)
+
     def get(self):
         souvenirInfo = Souvenir.get_souvenir()
+        
+        # セッション変数をクッキー・バックエンドへと設定
+        self.session[SESSION_NAME] = 'message'
     
         self.response.out.write(template.render('html/cart.html',
                                                 {'name': souvenirInfo['name'],
@@ -28,6 +72,11 @@ class CartPageHandler(webapp2.RequestHandler):
         
         
     def post(self):
+
+        if self.has_session_error():
+            return
+            
+            
         quantity = int(self.request.get('quantity'))
         
         souvenirInfo = Souvenir.get_souvenir()
@@ -77,11 +126,14 @@ class CartPageHandler(webapp2.RequestHandler):
         
         
         
-class PaymentPageHandler(webapp2.RequestHandler):
+class PaymentPageHandler(BaseSessionHandler):
     def get(self):
+        if self.has_session_error():
+            return
+    
+    
         paypalResponse = EC.get_express_checkout_details(self.request.get('token'))
         
-
         hasError = ErrorOperation.has_get_error(self.response, paypalResponse, 'GetExpressCheckoutDetails')
         if hasError:
             return
@@ -126,6 +178,11 @@ class PaymentPageHandler(webapp2.RequestHandler):
     # 本ではgetしていたが、重要なデータがあるので同じクラスのpostに変更する
     # 本でgetしていた理由がわからない (hrefで次の画面に遷移していたため、postが使えない？)
     def post(self):
+    
+        if self.has_session_error():
+            return
+    
+    
         payerId = self.request.get('PayerID')
         souvenirInfo = Souvenir.get_souvenir()
         
@@ -173,9 +230,28 @@ class CancelPageHandler(webapp2.RequestHandler):
             
 debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 
+config = {}
+config['webapp2_extras.sessions'] = {
+                                    'secret_key': 'my-secret-key',
+                                    'cookie_name' : 'my-session-name',
+                                    'cookie_args' : {
+                                                     'max_age' : None,       # Noneの場合、クライアント終了時にクッキー削除
+                                                     'domain' : None,        # 徳丸本(p218)より
+                                                     'path' : '/',
+                                                     'secure' : True,        # セキュア属性、https接続なのでTrue -> localhostだとhttps不可なので注意
+                                                     'httponly': True        # 徳丸本(p219)より、ONにしておく
+                                                    },
+                                    'backends': {'datastore': 'webapp2_extras.appengine.sessions_ndb.DatastoreSessionFactory',
+                                                 'memcache': 'webapp2_extras.appengine.sessions_memcache.MemcacheSessionFactory',
+                                                 'securecookie': 'webapp2_extras.sessions.SecureCookieSessionFactory',
+                                                }
+                                   }
+                                       
+
 app = webapp2.WSGIApplication([(URL_START, CartPageHandler),
                                (URL_PAYMENT + '*', PaymentPageHandler),
                                (URL_CANCEL_REDIRECT + '.*', CancelHandler),
                                (URL_CANCEL, CancelPageHandler),
                               ],
+                              config=config,
                               debug=debug)
