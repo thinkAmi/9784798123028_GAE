@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<link href="/css/index.css" rel="stylesheet" type="text/css" />
+
+<title>イマココ！　現在地登録</title>
+
+<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script type="text/JavaScript" src="/js/index.js"></script>
+
+</head>
+<body>
+<div id="container">
+    <form action="/" method="post">
+        <h1>現在地登録</h1>
+        
+        <dl>
+            <dt>名前：
+            {% if errorNickname %}
+                <span class="error">名前は必須です</span>
+            {% endif %}
+            </dt>
+            <dd><input type="text" name="nickname" value="{{ nickname }}" /></dd>
+            
+            <dt>タグ：</dt>
+            <dd><input type="text" id="tag" name="tag" value="{{ tag }}" /></dd>
+            
+            <dt>メッセージ：</dt>
+            <dd><input type="text" name="message" value="{{ message }}"/></dd>
+        </dl>
+        
+        <p><input type="button" id="regist" value="登録する" /></p>
+        <p><input type="button" id="map" value="地図を表示する" /></p>
+        
+        <input type="text" id="lat" name="lat" value="{{ lat }}"/> <!-- 緯度 -->
+        <input type="text" id="lng" name="lng" value="{{ lng }}"/> <!-- 経度 -->
+        
+        <!-- 最終的な実装はこちら(p218)
+        <input type="hidden" id="lat" name="lat" />
+        <input type="hidden" id="lng" name="lng" />
+        -->
+        
+    </form>
+</div>
+</body>
+</html>
