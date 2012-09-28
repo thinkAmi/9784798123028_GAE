@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>検索キーワード</title>
+<style type="text/css">
+body {
+  width: 200px;
+  height: 200px;
+}
+</style>
+<script type="text/javascript">
+    /* 設定画面が読み込まれたときに呼ばれる関数 */
+    function onLoad() {
+        // 表示されたら設定項目から読み出してテキストボックスに入れる
+        document.getElementById('title').value = System.Gadget.Settings
+                .readString("title");
+        document.getElementById('author').value = System.Gadget.Settings
+                .readString("author");
+        document.getElementById('publisher').value = System.Gadget.Settings
+                .readString("publisher");
+    }
+
+    /* 設定画面が完了するときに呼ばれる関数 */
+    function onSettingsClosing(event) {
+        if (event.closeAction == event.Action.commit) {
+            // ［OK］ボタンを押すと入力された文字列を設定項目に格納する
+            System.Gadget.Settings.writeString("title", document
+                    .getElementById('title').value);
+            System.Gadget.Settings.writeString("author", document
+                    .getElementById('author').value);
+            System.Gadget.Settings.writeString("publisher", document
+                    .getElementById('publisher').value);
+        }
+    }
+
+    // 設定画面が読み込まれたときのイベント
+    window.onload = onLoad;
+    // 設定画面を閉じるときのイベント
+    System.Gadget.onSettingsClosing = onSettingsClosing;
+</script>
+</head>
+<body>
+  <p>タイトル:<br />
+  <input id="title" type="text" /></p>
+  <p>著者:<br />
+  <input id="author" type="text" /></p>
+  <p>出版社:<br />
+  <input id="publisher" type="text" /></p>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gadget>
+  <name>新刊情報ガジェット</name>
+  <namespace>com.appspot.freshpubbar</namespace>
+  <version>1.0.0.0</version>
+  <author name="NAKAGAKI Kenji">
+    <info url="freshpubbar.appspot.com" />
+    <logo src="logo.png" />
+  </author>
+  <copyright>NAKAGAKI Kenji</copyright>
+  <description>新刊情報ガジェット</description>
+  <icons>
+    <icon height="48" width="48" src="icon.gif" />
+  </icons>
+  <hosts>
+    <host name="sidebar">
+      <base type="HTML" apiVersion="1.0.0" src="freshpubbar.html" />
+      <permissions>Full</permissions>
+      <platform minPlatformVersion="1.0" />
+      <defaultImage src="icon.png" />
+    </host>
+  </hosts>
+</gadget><?xml version="1.0" encoding="UTF-8"?>

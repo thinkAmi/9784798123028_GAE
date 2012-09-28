@@ -11,7 +11,7 @@
 ----------
 
 * OS: Windows7 x64
-* SDK: Google App Engine SDK for Python 1.7.1 - 2012-06-26
+* SDK: Google App Engine SDK for Python 1.7.2 - 2012-09-18
 * Python: Python2.7
 
 
@@ -44,6 +44,13 @@ git clone後、Launcherからサブディレクトリの「chap*」のいずれ�
 
 ### Matthew A. Russell 著「PayPal APIs: Up and Running (2nd Ed.)」(Copyright 2012 O’Reilly Media, Inc., 978-1-449-31872-7) ###
 ExpressCheckout API を中心に、PayPal API の使い方が参考になりました。
+
+
+
+###Bottlenose : Copyright © 2011-2012 Dan Loewenherz###
+chap7にて、Amazon API向けのモジュールとして利用しています。
+
+
 
 ライセンス
 ----------
