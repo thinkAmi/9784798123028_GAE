@@ -1,0 +1,29 @@
+application: <your application id>
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /cron/tweet
+  script: tweet_handler.app
+  login: admin
+
+- url: /cron/delete
+  script: tweet_handler.app
+  login: admin
+
+- url: /cron/refollow
+  script: tweet_handler.app
+  login: admin
+
+- url: /cron/unfollow
+  script: tweet_handler.app
+  login: admin
+
+- url: /cron/gather
+  script: gather.app
+  login: admin
+
+
+

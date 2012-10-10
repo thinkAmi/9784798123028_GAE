@@ -1,0 +1,21 @@
+# See https://developers.google.com/appengine/docs/python/config/cron?hl=ja#Uploading_Cron_Jobs
+cron:
+- description: gather tweets
+  url: /cron/gather
+  schedule: every 10 minutes
+  timezone: Asia/Tokyo
+
+- description: refollow followers
+  url: /cron/refollow
+  schedule: every day 03:00
+  timezone: Asia/Tokyo
+
+- description: remove friends
+  url: /cron/unfollow
+  schedule: every day 04:00
+  timezone: Asia/Tokyo
+
+- description: tweet
+  url: /cron/tweet
+  schedule: every 1 hours
+  timezone: Asia/Tokyo
