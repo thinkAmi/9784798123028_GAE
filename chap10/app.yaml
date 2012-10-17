@@ -1,0 +1,49 @@
+application: <your application id>
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+error_handlers:
+- file: html/error.html
+
+handlers:
+- url: /juststop/css
+  static_dir: juststop/css
+
+- url: /juststop/img
+  static_dir: juststop/img
+
+- url: /juststop/js
+  static_dir: juststop/js
+
+- url: /index
+  script: index.app
+
+- url: /login
+  script: loginout.app
+
+- url: /logout
+  script: loginout.app
+
+- url: /loginhandler
+  script: openid_handler.app
+
+- url: /logouthandler
+  script: openid_handler.app
+
+- url: /juststop/main
+  script: main.app
+
+- url: /juststop/register
+  script: register.app
+
+- url: /juststop/ranking
+  script: ranking.app
+
+- url: /require
+  script: option.require.app
+  login: required
+
+- url: /_ah/login_required
+  script: loginout.app

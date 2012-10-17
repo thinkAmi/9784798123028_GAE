@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=320px, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Just Stop</title>
+<link rel="stylesheet" type="text/css" href="/juststop/css/main.css"></link>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="/juststop/js/main.js"></script>
+</head>
+
+<body>
+    <!-- 発進画面 -->
+    <div id="screen1" >
+        <!-- ミニカー(上から) -->
+        <img id="cartop" src="/juststop/img/cartop.gif" />
+        <!-- GOボタン -->
+        <input id="go" type="button" value="GO!" />
+    </div>
+
+    <!-- 走行画面 -->
+    <div id="screen2">
+        <div id="updating"></div>
+        <div id="sideview">
+            <!-- ミニカー(横から) -->
+            <img id="carside" src="/juststop/img/carside.gif" />
+            <!-- ペン立て -->
+            <img id="object" src="/juststop/img/object.gif" />
+            <!-- 机の画像 -->
+            <div id="road"></div>
+        </div>
+
+        <div id="infoview">
+            <span id="score">あと 000.0cm</span><br />
+            <input id="retry" type="button" value="再挑戦" /><br />
+            {% if user %}
+                <input id="register" type="button" value="記録登録" />
+            {% else %}
+                <input id="register" type="button" value="記録登録" disabled="disabled" />
+            {% endif %}
+            <input id="ranking" type="button" value="ランキング" />
+        </div>
+    </div>
+</body>
+</html>

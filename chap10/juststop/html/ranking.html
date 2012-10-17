@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=320px, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Just Stop - Ranking</title>
+</head>
+
+<body>
+    <div id="header" class="pre">
+        <h1>ランキング</h1>
+        <p>{{ rankingDate }}</p>
+        <a href="#" id="backButton" onClick="window.close(); return false;">閉じる</a>
+    </div>
+
+    <ul>
+        <!-- 検索結果を表示する -->
+        {% for score in scores %}
+            <li>
+                <small>{{ score.get_left_length }} cm</small>
+                {{ forloop.counter }}位： {{ score.nickname }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>スマートゲーム集 - 認証画面</title>
+</head>
+<body>
+    <div>
+        <p>
+            {% if user %}
+                {{ nickname }}
+            {% else %}
+                ログインしていません。
+            {% endif %}
+        </p>
+        {% if user %}
+            <h1>ログアウト画面</h1>
+        {% else %}
+            <h1>ログイン画面</h1>
+        {% endif %}
+        <a href="/index">戻る</a>
+    </div>
+
+    {% if user %}
+        <p><a href="{{ logoutUrl }}">ログアウト</a></p>
+    {% else %}
+        <ul>
+            <li><a href="{{ google }}">Googleでログイン</a></li>
+            <li><a href="{{ yahoo }}">Yahooでログイン</a></li>
+            <li><a href="{{ hatena }}">はてなでログイン</a></li>
+        </ul>
+    {% endif %}
+</body>
+</html>
