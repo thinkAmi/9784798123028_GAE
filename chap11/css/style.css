@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+#mycanvas { float: left; border: 1px solid #000000; display: none; }
+#historycanvas { float: left; border: 1px solid #000000; }
+#history { margin-left: 650px; height : 400px; border: 1px solid #000000; }
+#newpicture { clear: both; }

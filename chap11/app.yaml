@@ -1,0 +1,42 @@
+application: <your application id>
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+error_handlers:
+- file: html/error.html
+
+handlers:
+- url: /css
+  static_dir: css
+
+- url: /img
+  static_dir: img
+
+- url: /js
+  static_dir: js
+
+- url: /
+  script: index.app
+
+- url: /gettoken
+  script: token_handler.app
+
+- url: /addstroke
+  script: add_stroke.app
+
+- url: /initstrokes
+  script: init_strokes.app
+
+- url: /initstrokes/.*
+  script: init_strokes.app
+
+- url: /newpicture
+  script: new_picture.app
+
+- url: /history
+  script: history_handler.app
+
+inbound_services:
+- channel_presence

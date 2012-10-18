@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>みんなでお絵かき</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/js/flashcanvas.js"></script>
+    <![endif]-->
+
+    <!-- [if lt IE 8]>
+    <script type="text/javascript" src="/js/json2.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="/_ah/channel/jsapi"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/collabosketch.js"></script>
+</head>
+<body>
+    <h1>みんなでお絵かき</h1>
+
+    <!-- 接続エリア -->
+    名前：
+    <input type="text" id="name" />
+    <span>（例：kenji）</span>
+
+    称号：
+    <select id="status">
+        <option value="0">伝説の画家</option>
+        <option value="1">人間国宝</option>
+        <option value="2">売れっ子デザイナー</option>
+        <option value="3">駆け出し漫画家</option>
+        <option value="4">美大生</option>
+        <option value="5">美術部員</option>
+        <option value="6">下手うま</option>
+        <option value="7">サル</option>
+    </select>
+
+    <input type="button" id="connect" value="接続" />
+    <input type="button" id="showcurrent" value="現在の絵を表示" />
+    <div id="message">message</div>
+
+    <!-- 描画エリア -->
+    <canvas id="mycanvas" width="640" height="400"></canvas>
+    <canvas id="historycanvas" width="640" height="400"></canvas>
+
+    <!-- 履歴エリア -->
+    <div id="history">
+        <h2>履歴</h2>
+
+        <ul>
+            <li><a href="#">2010/12/10 13:10</a></li>
+            <li><a href="#">2010/12/9 17:45</a></li>
+        </ul>
+    </div>
+
+    <!-- 新規エリア -->
+    <p><input type="button" id="newpicture" value="新しい絵を描く" /></p>
+</body> 
+</html>
